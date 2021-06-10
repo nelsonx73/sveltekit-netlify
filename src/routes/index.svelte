@@ -1,17 +1,29 @@
+<script context="module">
+	export async function load() {
+		const url = `/api/data`;
+		const res = await fetch(url);
+		const data = await res.json();
+
+		return { props: { apiData: data } };
+	}
+</script>
+
 <script>
-	import { apiData } from '../stores/store';
+	// import { apiData } from '../stores/store';
 	import DataCard from '../components/dataCard.svelte';
+
+	export let apiData;
 
 	let searchTerm = '';
 	let filtereredApiData = [];
 
 	$: {
 		if (searchTerm) {
-			filtereredApiData = $apiData.filter((element) =>
+			filtereredApiData = apiData.filter((element) =>
 				element.name.toUpperCase().includes(searchTerm.toUpperCase())
 			);
 		} else {
-			filtereredApiData = [...$apiData];
+			filtereredApiData = [...apiData];
 		}
 	}
 </script>

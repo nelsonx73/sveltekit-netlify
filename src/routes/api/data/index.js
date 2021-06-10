@@ -15,6 +15,8 @@ export async function get({params}) {
 		};
 	});
 
+	console.log("aui fui invocado")
+
     return {
         status: 200,
         body: loadedData
