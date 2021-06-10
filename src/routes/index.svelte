@@ -1,10 +1,21 @@
 <script context="module">
 	export async function load() {
-		const url = `/api/data`;
+		const url = `https://pokeapi.co/api/v2/pokemon?limit=150`;
+		console.log(url);
 		const res = await fetch(url);
 		const data = await res.json();
 
-		return { props: { apiData: data } };
+		const loadedData = data.results.map((element, index) => {
+			return {
+				name: element.name,
+				id: index + 1,
+				image: `https://raw.githubusercontent.com/PokeApi/sprites/master/sprites/pokemon/${
+					index + 1
+				}.png`
+			};
+		});
+
+		return { props: { apiData: loadedData } };
 	}
 </script>
 
